@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sava Logan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Анимация появления текста */
+        @keyframes textAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Эффект сияния */
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073;
+            }
+            50% {
+                text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6;
+            }
+        }
+
+        .main-title {
+            position: relative;
+            text-align: center;
+            animation: textAppear 2s ease-out forwards;
+        }
+
+        .sava {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #c0c0c0;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: -2rem;
+            animation: glow 2s ease-in-out infinite;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
+        }
+
+        .logan {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #c0c0c0;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-top: -2rem;
+            animation: glow 2s ease-in-out infinite;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
+        }
+
+        /* Стили для тетрадного листа */
+        .notebook-page {
+            margin-top: 3rem;
+            background: transparent;
+            width: 400px;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        /* Горизонтальные линии тетради */
+        .notebook-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                transparent 39px, 
+                rgba(255, 255, 255, 0.1) 39px, 
+                rgba(255, 255, 255, 0.1) 40px
+            );
+            background-size: 100% 40px;
+            pointer-events: none;
+        }
+
+        .line {
+            position: relative;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            padding-left: 20px;
+        }
+
+        .line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Аудио плеер */
+        .audio-player {
+            margin-top: 2rem;
+            width: 300px;
+        }
+
+        .song-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #c0c0c0;
+        }
+
+        audio {
+            width: 100%;
+            filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .sava, .logan {
+                font-size: 4rem;
+                letter-spacing: 4px;
+            }
+            
+            .notebook-page {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-title">
+        <div class="sava">SAVA</div>
+        <div class="logan">LOGAN</div>
+    </div>
+
+    <div class="notebook-page">
+        <div class="line">Username - @Sava_Logan</div>
+        <div class="line">Name - Sava</div>
+        <div class="line">Number - +1</div>
+    </div>
+
+    <div class="audio-player">
+        <div class="song-title">When You Find Me (Bonus Track)</div>
+        <audio controls autoplay loop>
+            <!-- Замените ссылку на вашу песню -->
+            <source src="when-you-find-me.mp3" type="audio/mpeg">
+            <source src="when-you-find-me.ogg" type="audio/ogg">
+            Ваш браузер не поддерживает аудио элемент.
+        </audio>
+    </div>
+
+    <script>
+        // Добавляем небольшую задержку перед началом анимации
+        document.addEventListener('DOMContentLoaded', function() {
+            const titles = document.querySelectorAll('.sava, .logan');
+            
+            titles.forEach((title, index) => {
+                title.style.animationDelay = (index * 0.3) + 's';
+            });
+
+            // Автовоспроизведение аудио (может не работать в некоторых браузерах)
+            const audio = document.querySelector('audio');
+            audio.volume = 0.7;
+            
+            // Попытка автовоспроизведения при взаимодействии с пользователем
+            document.body.addEventListener('click', function() {
+                audio.play().catch(e => console.log('Autoplay prevented'));
+            });
+        });
+    </script>
+</body>
+</html>
